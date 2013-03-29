@@ -98,25 +98,52 @@ Mit "vagrant ssh" kann man sich gegen die box verbinden (bei windows zum Beispie
 
 ### Shell Provisioner
 
-TODO
+Nachdem nun die Basisbox erstellt wurde gilt es die Installationen durchzuführen.
+Hierzu bietet Vagant verschiedene Shell-Provisioner.
+Hierzu gehören Shell Skripte, Puppet (https://puppetlabs.com) und Chef (http://www.opscode.com/chef/).
+
+Wir wollen in diesem Beispiel nur ein einzigen Shell-Befehl ausführen.
+Dies machen wir inline:
+
+```html
+  config.vm.provision :shell, :inline => "apt-get update"
+```
 
 ### Chef Provisioner
 
-TODO
+Vagant bietet das Bespielen der Boxen mittel Chef an.
+Chef ist ein Tool zur Konfiguration von Servern. Die Konfiguration ist auf Servern
+gespeichert und die Clients holen sich die config.
+Diese Variante ist allerdings kostenpflichtig und für unsere Zwecke nicht nötig.
+Wir nutzen als Provisionen Chef-Solo. Dies ist kostenlos und enthält die Einschränkung
+dass die config lokal definiert sein muss, was genau unserem Zweck entspricht.
+Chef Installationen (genannt Kochbücher und Rezepte) sind in ruby geschrieben 
+aber für die meisten Sachen gibt es bereits Installationen welche im Github liegen
+(http://community.opscode.com/cookbooks). Für unser Beispiel habe ich mir ein
+Java cookbook runtergeladen. Dies Kochbücher unterstützen in der Regel sehr viele
+verschiedene Betriebssysteme.
+Das Packet habe ich nach cooksbook kopiert. 2 Zeilen reichen um dies auszuführen:
 
-## Dieses Beispiel
 
-TODO
+```html
+  config.vm.provision :chef_solo do |chef|
+     chef.cookbooks_path = "cookbooks"
+     chef.add_recipe "java"
+  end
+```
 
-### vagrant init
+Vagant unterstützt noch Rollen um Rezepte zu bündeln. So könnte man zum Beispiel eine 
+Rolle lamp definieren welche die Rezepte "mysql, apache, php" enthält.
+Für unseren Zweck ist dies nicht nötig.
 
-TODO
+## Abschlusstest
 
-### java
+* löschen der Box falls bereits vorhanden
+* vagrant up aufrufen
+* vagrant ssh
+* in shared Folder gehen
+* java Klasse compilieren
+* java compilat starten
+* Aufrufen über browser 
 
-TODO
-
-### Ergebnis
-
-TODO
 
