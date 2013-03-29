@@ -122,7 +122,7 @@ aber für die meisten Sachen gibt es bereits Installationen welche im Github lie
 (http://community.opscode.com/cookbooks). Für unser Beispiel habe ich mir ein
 Java cookbook runtergeladen. Dies Kochbücher unterstützen in der Regel sehr viele
 verschiedene Betriebssysteme.
-Das Packet habe ich nach cooksbook kopiert. 2 Zeilen reichen um dies auszuführen:
+Das Packet habe ich nach cookbook kopiert. 2 Zeilen reichen um dies auszuführen:
 
 
 ```html
@@ -138,12 +138,14 @@ Für unseren Zweck ist dies nicht nötig.
 
 ## Abschlusstest
 
-* löschen der Box falls bereits vorhanden
-* vagrant up aufrufen
-* vagrant ssh
-* in shared Folder gehen
-* java Klasse compilieren
-* java compilat starten
-* Aufrufen über browser 
+* Zunächst lösche ich die Box (falls bereits vorhanden) mit "vagrant destroy" 
+* vagrant up aufrufen: "vagrant up"
+* einlochen auf der box: "vagrant ssh"
+* in shared Folder gehen (der Ordner workspaces sollte geshared sein) "cd /vagran_data/"
+* java Klasse compilieren (Ich hab zum Test eine Java Klasse in den shared Folder gelegt welche sich ja nun mit java compilieren lassen müsste): "javac HelloWorld.java"
+* java compilat starten: "java HelloWorld.class"
+* Aufrufen über browser (Das Programm enthält einen kleinen http-Server (port 8080) der durch das Port-Forwarding nun von aussen aufgerufen werden können sollte: "im browser localhost:4567" 
+
+Der Aufwand zum aufsetzen eines Betriebssystem mit der automatisierten Installation von Java war der Download eines Repos mit einem Java-Chef-Rezept, ca 20 Zeilen vagrant-file-code und die einmalige Installation von Virtual Box und vagrant.
 
 

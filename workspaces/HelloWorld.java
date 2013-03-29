@@ -9,7 +9,7 @@ public class HelloWorld{
 		while(true){
 			Socket sock = listener.accept();
 			new PrintWriter(sock.getOutputStream(), true).
-            println("Goodbye, World!");
+            println("Vagrant Rocks!");
 			sock.close();
 		}
 	}
